@@ -2,9 +2,12 @@ package com.example.kenneth_gillingham_c196_mobiledev.UI;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -121,6 +124,31 @@ public class CourseList extends AppCompatActivity {
         courseAdapter.setCourses(filteredCourses);
     }
 
+    @Override public boolean onOptionsItemSelected(MenuItem item){
+        switch (item.getItemId()){
+            case android.R.id.home:
+                this.finish();
+                return true;
+
+            case R.id.delete:
+                if (numberCourses == 0){
+                    repository.delete(currentTerm);
+                    Toast.makeText(getApplicationContext(),"Term SuccessfullyDeleted", Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(CourseList.this, TermList.class);
+                    startActivity(intent);
+                }
+                else{
+                    Toast.makeText(getApplicationContext(), "Cannot Delete a Term with an Associated Course", Toast.LENGTH_LONG).show();
+                }
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate();
+        return true
+    }
 
 
 
