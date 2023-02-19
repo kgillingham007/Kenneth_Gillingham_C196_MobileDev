@@ -3,5 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item android:title="Add Sample Term Data"
-        android:id="@+id/termListMenuButton"/>
+        android:id="@+id/termListAddSampleData"/>
+    <item android:title="Refresh Term List Data"
+        android:id="@+id/termListRefreshData"/>
 </menu>

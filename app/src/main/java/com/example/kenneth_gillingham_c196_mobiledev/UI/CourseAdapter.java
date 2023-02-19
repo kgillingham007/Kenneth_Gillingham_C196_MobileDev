@@ -36,10 +36,14 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseView
 
     public class CourseViewHolder extends RecyclerView.ViewHolder{
         private final TextView courseTextView;
+        private final TextView courseListItemView1;
+        private final TextView courseListItemView2;
 
         private CourseViewHolder(View itemView){
             super(itemView);
             courseTextView = itemView.findViewById(R.id.courseTextView);
+            courseListItemView1 = itemView.findViewById(R.id.courseListTextView1);
+            courseListItemView2 = itemView.findViewById(R.id.courseListTextView2);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -63,7 +67,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseView
     @NonNull
     @Override
     public CourseAdapter.CourseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemView = mInflator.inflate(R.layout.activity_course_list,parent,false);
+        View itemView = mInflator.inflate(R.layout.course_list_item,parent,false);
         return new CourseViewHolder((itemView));
     }
 
@@ -71,11 +75,12 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseView
     public void onBindViewHolder(@NonNull CourseAdapter.CourseViewHolder holder, int position) {
         if (mCourses != null){
             final CourseEntity current = mCourses.get(position);
-            String name = current.getCourseTitle();
-            holder.courseTextView.setText(name);
+            holder.courseListItemView1.setText(Integer.toString(current.getCourseID()));
+            holder.courseListItemView2.setText(current.getCourseTitle());
         }
         else{
-            holder.courseTextView.setText("No Course Title");
+            holder.courseListItemView1.setText("No Course ID");
+            holder.courseListItemView2.setText("No Course Title");
         }
     }
 

@@ -88,7 +88,7 @@ public class CourseList extends AppCompatActivity {
         Button button = findViewById(R.id.saveTermButton);
         button.setOnClickListener(view -> {
             if(ID == -1){
-                //ID = allTerms.get(allTerms.size()-1).getTermID();
+                ID = allTerms.get(allTerms.size()-1).getTermID();
                 TermEntity t = new TermEntity(++ID,editTitle.getText().toString(),editStartDate.getText().toString(),editEndDate.getText().toString());
                 repository.insert(t);
             }
@@ -96,8 +96,8 @@ public class CourseList extends AppCompatActivity {
                 TermEntity t = new TermEntity(ID,editTitle.getText().toString(),editStartDate.getText().toString(),editEndDate.getText().toString());
                 repository.update(t);
             }
-            //Intent intent = new Intent(CourseList.this,TermList.class);
-            //startActivity(intent);
+            Intent intent = new Intent(CourseList.this,TermList.class);
+            startActivity(intent);
         });
     }
 
@@ -120,6 +120,27 @@ public class CourseList extends AppCompatActivity {
         numberCourses = filteredCourses.size();
         courseAdapter.setCourses(filteredCourses);
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     /*
     public void saveTerm(View view){
