@@ -5,22 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/courseTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Please Enter/Edit Term Information. Select a Course to See it's Details or Add a New Course."
-        android:textAlignment="center"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <ScrollView
-        android:id="@+id/courseListScrollView"
-        android:layout_width="409dp"
+        android:id="@+id/scrollView4"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/courseTextView">
+        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteY="1dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -33,19 +23,19 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/textView4"
+                    android:id="@+id/textView16"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Term Title" />
+                    android:text="Assessment Type" />
 
                 <EditText
-                    android:id="@+id/termTitleEditText"
+                    android:id="@+id/assessmentTypeEditText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
-                    android:hint="Term Title"
+                    android:hint="Performance or Objective"
                     android:inputType="textPersonName" />
             </LinearLayout>
 
@@ -55,19 +45,19 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/textView5"
+                    android:id="@+id/textView17"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Term Start Date" />
+                    android:text="Assessment Title" />
 
                 <EditText
-                    android:id="@+id/termStartDateEditText"
+                    android:id="@+id/assessmentTitleEditText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
-                    android:hint="Term Start Date"
+                    android:hint="Assessment Title"
                     android:inputType="textPersonName" />
             </LinearLayout>
 
@@ -77,61 +67,52 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/textView6"
+                    android:id="@+id/textView18"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Term End Date" />
+                    android:text="Assessment Start Date" />
 
                 <EditText
-                    android:id="@+id/termEndDateEditText"
+                    android:id="@+id/assessmentStartDateEditText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
-                    android:hint="Term End Date"
+                    android:hint="Assessment Start Date"
+                    android:inputType="textPersonName" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textView19"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Assessment End Date" />
+
+                <EditText
+                    android:id="@+id/assessmentEndDateEditText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:hint="Assessment End Date"
                     android:inputType="textPersonName" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
 
-    <TextView
-        android:id="@+id/textView8"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:text="Associated Courses"
-        android:textAlignment="center"
-        android:textSize="14sp"
-        android:textStyle="bold"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/saveTermButton" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/associatedCoursesRecyclerView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textView8" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/addCourseFAB"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:clickable="true"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:srcCompat="@drawable/baseline_add_box_24" />
-
     <Button
-        android:id="@+id/saveTermButton"
+        android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:onClick="saveTerm"
-        android:text="Save Term"
+        android:text="Save Assessment"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/courseListScrollView" />
-
+        app:layout_constraintTop_toBottomOf="@+id/scrollView4" />
 </androidx.constraintlayout.widget.ConstraintLayout>

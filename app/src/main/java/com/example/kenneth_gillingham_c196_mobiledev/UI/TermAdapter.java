@@ -45,24 +45,24 @@ public class TermAdapter extends RecyclerView.Adapter<TermAdapter.TermViewHolder
                     int position = getAdapterPosition();
                     final TermEntity current = mTerms.get(position);
                     Intent intent = new Intent(context, CourseList.class);
-                    intent.putExtra("id",current.getTermID());
-                    intent.putExtra("title", current.getTermTitle());
-                    intent.putExtra("start date",current.getTermStartDate());
-                    intent.putExtra("end date", current.getTermEndDate());
+                    intent.putExtra("termID",current.getTermID());
+                    intent.putExtra("termTitle", current.getTermTitle());
+                    intent.putExtra("termStartDate",current.getTermStartDate());
+                    intent.putExtra("termEndDate", current.getTermEndDate());
                     context.startActivity(intent);
                 }
             });
         }
     }
 
-    @NonNull @Override public TermAdapter.TermViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType){
+    @NonNull @Override public TermViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType){
         View itemView = mInflator.inflate(R.layout.activity_term_list,parent,false);
         return new TermViewHolder((itemView));
     }
 
     @Override public void onBindViewHolder(@NonNull TermAdapter.TermViewHolder holder, int position){
         if (mTerms != null){
-            TermEntity current = mTerms.get(position);
+            final TermEntity current = mTerms.get(position);
             String name = current.getTermTitle();
             holder.termListTextView.setText(name);
         }
