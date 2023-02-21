@@ -35,14 +35,14 @@ public class TermAdapter extends RecyclerView.Adapter<TermAdapter.TermViewHolder
     }
 
     public class TermViewHolder extends RecyclerView.ViewHolder{
-        private final TextView termListTextView;
+        //private final TextView termListTextView;
         private final TextView termItemTextView1;
         private final TextView termItemTextView2;
         private TermViewHolder(View itemView){
             super(itemView);
             termItemTextView1 = itemView.findViewById(R.id.termListTextView1);
             termItemTextView2 = itemView.findViewById(R.id.termListTextView2);
-            termListTextView = itemView.findViewById(R.id.termTextView);
+            //termListTextView = itemView.findViewById(R.id.termTextView);
             itemView.setOnClickListener(view -> {
                 int position = getAdapterPosition();
                 final TermEntity current = mTerms.get(position);
@@ -61,7 +61,7 @@ public class TermAdapter extends RecyclerView.Adapter<TermAdapter.TermViewHolder
         return new TermViewHolder(itemView);
     }
 
-    @Override public void onBindViewHolder(@NonNull TermAdapter.TermViewHolder holder, int position){
+    @NonNull @Override public void onBindViewHolder(@NonNull TermAdapter.TermViewHolder holder, int position){
         if (mTerms != null){
             final TermEntity current = mTerms.get(position);
             //String name = current.getTermTitle();

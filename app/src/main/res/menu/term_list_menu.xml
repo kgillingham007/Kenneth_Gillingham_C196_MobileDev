@@ -4,6 +4,7 @@
 
     <item android:title="Add Sample Term Data"
         android:id="@+id/termListAddSampleData"/>
-    <item android:title="Refresh Term List Data"
-        android:id="@+id/termListRefreshData"/>
+    <item
+        android:id="@+id/termListDelete"
+        android:title="Delete" />
 </menu>

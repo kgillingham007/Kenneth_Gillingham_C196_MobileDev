@@ -64,6 +64,7 @@ public class CourseList extends AppCompatActivity {
             editStartDate.setText(currentTerm.getTermStartDate());
             editEndDate.setText(currentTerm.getTermEndDate());
         }
+
         RecyclerView recyclerView = findViewById(R.id.associatedCoursesRecyclerView);
         final CourseAdapter courseAdapter = new CourseAdapter(this);
         recyclerView.setAdapter(courseAdapter);
@@ -91,13 +92,13 @@ public class CourseList extends AppCompatActivity {
         Button button = findViewById(R.id.saveTermButton);
         button.setOnClickListener(view -> {
             if(ID == -1){
-                ID = allTerms.get(allTerms.size()-1).getTermID();
-                TermEntity t = new TermEntity(++ID,editTitle.getText().toString(),editStartDate.getText().toString(),editEndDate.getText().toString());
-                repository.insert(t);
+                //ID = allTerms.get(allTerms.size()).getTermID();
+                TermEntity newTerm = new TermEntity(0,editTitle.getText().toString(),editStartDate.getText().toString(),editEndDate.getText().toString());
+                repository.insert(newTerm);
             }
             else{
-                TermEntity t = new TermEntity(ID,editTitle.getText().toString(),editStartDate.getText().toString(),editEndDate.getText().toString());
-                repository.update(t);
+                TermEntity editTerm = new TermEntity(ID,editTitle.getText().toString(),editStartDate.getText().toString(),editEndDate.getText().toString());
+                repository.update(editTerm);
             }
             Intent intent = new Intent(CourseList.this,TermList.class);
             startActivity(intent);
@@ -130,10 +131,14 @@ public class CourseList extends AppCompatActivity {
                 this.finish();
                 return true;
 
-            case R.id.delete:
+            case R.id.courseListRefresh:
+                refreshCourseList();
+                return true;
+
+            case R.id.termListDelete:
                 if (numberCourses == 0){
                     repository.delete(currentTerm);
-                    Toast.makeText(getApplicationContext(),"Term SuccessfullyDeleted", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(),"Term Successfully Deleted", Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(CourseList.this, TermList.class);
                     startActivity(intent);
                 }
@@ -146,8 +151,23 @@ public class CourseList extends AppCompatActivity {
     }
 
     public boolean onCreateOptionsMenu(Menu menu){
-        getMenuInflater().inflate();
-        return true
+        getMenuInflater().inflate(R.menu.term_list_menu, menu);
+        return true;
+    }
+
+    private void refreshCourseList(){
+        recyclerView = findViewById(R.id.associatedCoursesRecyclerView);
+        final CourseAdapter adapter = new CourseAdapter(this);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        List<CourseEntity> filteredCourses = new ArrayList<>();
+        List<CourseEntity> allCourses = repository.getAllCourses();
+        for (CourseEntity c : allCourses){
+            if (c.getTermID() == ID)
+                filteredCourses.add(c);
+        }
+        numberCourses = filteredCourses.size();
+        adapter.setCourses(filteredCourses);
     }
 
 

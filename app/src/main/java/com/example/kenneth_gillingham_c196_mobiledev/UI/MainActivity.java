@@ -11,6 +11,8 @@ import com.example.kenneth_gillingham_c196_mobiledev.R;
 
 public class MainActivity extends AppCompatActivity {
 
+    public static int numberAlert;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

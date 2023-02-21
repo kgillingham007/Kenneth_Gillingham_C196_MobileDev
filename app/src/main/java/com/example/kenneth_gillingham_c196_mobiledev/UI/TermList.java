@@ -31,6 +31,7 @@ import java.util.List;
 public class TermList extends AppCompatActivity {
     private Repository repository;
     private RecyclerView recyclerView;
+    TermEntity currentTerms;
     private int numTerms;
     private int termID;
 
@@ -45,9 +46,13 @@ public class TermList extends AppCompatActivity {
         repository = new Repository(getApplication());
         List<TermEntity> allTerms = repository.getAllTerms();
         termAdapter.setTerms(allTerms);
+
         FloatingActionButton fab = findViewById(R.id.addTermFAB);
         fab.setOnClickListener(view -> {
             Intent intent = new Intent(TermList.this, CourseList.class);
+            if (currentTerms != null)
+                intent.putExtra("termID", currentTerms.getTermID());
+
             startActivity(intent);
         });
         //ActionBar actionBar = getActionBar();
@@ -57,12 +62,12 @@ public class TermList extends AppCompatActivity {
     @Override protected void onResume(){
         super.onResume();
         List<TermEntity> allTerms = repository.getAllTerms();
-        //List<TermEntity> filteredTerms = new ArrayList<>();
+        List<TermEntity> filteredTerms = new ArrayList<>();
         RecyclerView recyclerView = findViewById(R.id.termRecyclerView);
         final TermAdapter termAdapter = new TermAdapter(this);
         recyclerView.setAdapter(termAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        //numTerms = filteredTerms.size();
+        numTerms = filteredTerms.size();
         termAdapter.setTerms(allTerms);
 
     }
@@ -74,9 +79,6 @@ public class TermList extends AppCompatActivity {
                 this.finish();
                 return true;
 
-            //case android.R.id.refresh:
-                //refreshTermData();
-                //return true;
         }
         return super.onOptionsItemSelected(item);
     }

@@ -18,17 +18,17 @@ import androidx.room.PrimaryKey;
 public class AssessmentEntity {
     @PrimaryKey(autoGenerate = true)
     private int assessmentID;
-    private String assessmentType;
     private String assessmentTitle;
+    private String assessmentType;
     private String assessmentStartDate;
     private String assessmentEndDate;
     private int courseID;
 
 
-    public AssessmentEntity(int assessmentID, String assessmentType, String assessmentTitle, String assessmentStartDate, String assessmentEndDate, int courseID){
+    public AssessmentEntity(int assessmentID,String assessmentTitle, String assessmentType,  String assessmentStartDate, String assessmentEndDate, int courseID){
         this.assessmentID = assessmentID;
-        this.assessmentType = assessmentType;
         this.assessmentTitle = assessmentTitle;
+        this.assessmentType = assessmentType;
         this.assessmentStartDate = assessmentStartDate;
         this.assessmentEndDate = assessmentEndDate;
         this.courseID = courseID;
@@ -43,20 +43,20 @@ public class AssessmentEntity {
         this.assessmentID = assessmentID;
     }
 
-    public String getAssessmentType() {
-        return assessmentType;
-    }
-
-    public void setAssessmentType(String assessmentType) {
-        this.assessmentType = assessmentType;
-    }
-
     public String getAssessmentTitle() {
         return assessmentTitle;
     }
 
     public void setAssessmentTitle(String assessmentTitle) {
         this.assessmentTitle = assessmentTitle;
+    }
+
+    public String getAssessmentType() {
+        return assessmentType;
+    }
+
+    public void setAssessmentType(String assessmentType) {
+        this.assessmentType = assessmentType;
     }
 
     public String getAssessmentStartDate() {

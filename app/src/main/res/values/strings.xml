@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Kenneth_Gillingham_C196_MobileDev</string>
+    <string name="channel_name">Channel Test</string>
+    <string name="channel_description">Channel Description Test</string>
 </resources>
