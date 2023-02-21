@@ -47,7 +47,7 @@ public class AssessmentList extends AppCompatActivity {
     public static int numberAssessments;
     RecyclerView recyclerView;
     public static int termID;
-    private int courseID;
+    private int ID;
     List<CourseEntity> allCourses;
     EditText editTitle;
     EditText editStartDate;
@@ -63,13 +63,13 @@ public class AssessmentList extends AppCompatActivity {
     @Override protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_assessment_list);
-        courseID = getIntent().getIntExtra("courseID",-1);
+        ID = getIntent().getIntExtra("courseID",-1);
         termID = getIntent().getIntExtra("termID",-1);
         repository = new Repository(getApplication());
         allCourses = repository.getAllCourses();
         for (CourseEntity c : allCourses){
             Log.d("Course ID", "ID: " + c.getCourseID());
-            if (c.getCourseID() == (courseID)) currentCourse = c;
+            if (c.getCourseID() == (ID)) currentCourse = c;
         }
 
         editTitle=findViewById(R.id.courseTitleEditText);
@@ -99,7 +99,7 @@ public class AssessmentList extends AppCompatActivity {
 
         List<AssessmentEntity> filteredAssessments = new ArrayList<>();
         for (AssessmentEntity a : repository.getAllAssessments()){
-            if (a.getCourseID() == courseID) filteredAssessments.add(a);
+            if (a.getCourseID() == ID) filteredAssessments.add(a);
         }
 
         numberAssessments = filteredAssessments.size();
@@ -110,21 +110,21 @@ public class AssessmentList extends AppCompatActivity {
         fab.setOnClickListener(view -> {
             Intent intent = new Intent(AssessmentList.this,AssessmentDetail.class);
             if (currentCourse != null)
-                intent.putExtra("courseID", currentCourse.getTermID());
-            intent.putExtra("courseID",courseID);
+                intent.putExtra("courseID", currentCourse.getCourseID());
+            intent.putExtra("courseID",ID);
             startActivity(intent);
         });
 
 
         Button button = findViewById(R.id.saveCourseButton);
         button.setOnClickListener(view -> {
-            if(courseID == -1){
+            if(ID == -1){
                 //courseID = allCourses.get(allCourses.size()-1).getCourseID();
-                CourseEntity newCourse = new CourseEntity(0,editTitle.getText().toString(),editStartDate.getText().toString(),editEndDate.getText().toString(),editStatus.getText().toString(),editInstructorName.getText().toString(),editInstructorPhone.getText().toString(),editInstructorEmail.getText().toString(),editNotes.getText().toString(),termID);
+                CourseEntity newCourse = new CourseEntity(++ID,editTitle.getText().toString(),editStartDate.getText().toString(),editEndDate.getText().toString(),editStatus.getText().toString(),editInstructorName.getText().toString(),editInstructorPhone.getText().toString(),editInstructorEmail.getText().toString(),editNotes.getText().toString(),termID);
                 repository.insert(newCourse);
             }
             else{
-                CourseEntity editCourse = new CourseEntity(courseID,editTitle.getText().toString(),editStartDate.getText().toString(),editEndDate.getText().toString(),editStatus.getText().toString(),editInstructorName.getText().toString(),editInstructorPhone.getText().toString(),editInstructorEmail.getText().toString(),editNotes.getText().toString(),termID);
+                CourseEntity editCourse = new CourseEntity(ID,editTitle.getText().toString(),editStartDate.getText().toString(),editEndDate.getText().toString(),editStatus.getText().toString(),editInstructorName.getText().toString(),editInstructorPhone.getText().toString(),editInstructorEmail.getText().toString(),editNotes.getText().toString(),termID);
                 repository.update(editCourse);
             }
             Intent intent = new Intent(AssessmentList.this,CourseList.class);
@@ -224,15 +224,15 @@ public class AssessmentList extends AppCompatActivity {
         final AssessmentAdapter assessmentAdapter = new AssessmentAdapter(this);
         recyclerView.setAdapter(assessmentAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        //List<AssessmentEntity>  filteredAssessments = new ArrayList<>();
+        List<AssessmentEntity>  filteredAssessments = new ArrayList<>();
 
-        //for (AssessmentEntity c : allAssessments){
-            //if (c.getCourseID() == courseID)
-                //filteredAssessments.add(c);
-        //}
+        for (AssessmentEntity a : allAssessments){
+            if (a.getCourseID() == ID)
+                filteredAssessments.add(a);
+        }
 
-        //numberAssessments = filteredAssessments.size();
-        assessmentAdapter.setAssessments(allAssessments);
+        numberAssessments = filteredAssessments.size();
+        assessmentAdapter.setAssessments(filteredAssessments);
     }
 
 }

@@ -67,6 +67,10 @@ public class TermList extends AppCompatActivity {
         final TermAdapter termAdapter = new TermAdapter(this);
         recyclerView.setAdapter(termAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        for (TermEntity t : allTerms){
+            if (t.getTermID() == termID)
+                filteredTerms.add(t);
+        }
         numTerms = filteredTerms.size();
         termAdapter.setTerms(allTerms);
 

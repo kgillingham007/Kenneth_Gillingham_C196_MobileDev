@@ -92,8 +92,8 @@ public class CourseList extends AppCompatActivity {
         Button button = findViewById(R.id.saveTermButton);
         button.setOnClickListener(view -> {
             if(ID == -1){
-                //ID = allTerms.get(allTerms.size()).getTermID();
-                TermEntity newTerm = new TermEntity(0,editTitle.getText().toString(),editStartDate.getText().toString(),editEndDate.getText().toString());
+                ID = allTerms.get(allTerms.size()-1).getTermID();
+                TermEntity newTerm = new TermEntity(++ID,editTitle.getText().toString(),editStartDate.getText().toString(),editEndDate.getText().toString());
                 repository.insert(newTerm);
             }
             else{
