@@ -50,9 +50,9 @@ public class TermList extends AppCompatActivity {
         FloatingActionButton fab = findViewById(R.id.addTermFAB);
         fab.setOnClickListener(view -> {
             Intent intent = new Intent(TermList.this, CourseList.class);
-            if (currentTerms != null)
+            if (currentTerms != null){
                 intent.putExtra("termID", currentTerms.getTermID());
-
+            }
             startActivity(intent);
         });
         //ActionBar actionBar = getActionBar();

@@ -109,8 +109,9 @@ public class AssessmentList extends AppCompatActivity {
         FloatingActionButton fab = findViewById(R.id.addAssessmentFAB);
         fab.setOnClickListener(view -> {
             Intent intent = new Intent(AssessmentList.this,AssessmentDetail.class);
-            if (currentCourse != null)
+            if (currentCourse != null){
                 intent.putExtra("courseID", currentCourse.getCourseID());
+            }
             intent.putExtra("courseID",courseID);
             startActivity(intent);
         });
@@ -120,7 +121,7 @@ public class AssessmentList extends AppCompatActivity {
         button.setOnClickListener(view -> {
             if(courseID == -1){
                 //ID = allCourses.get(allCourses.size()-1).getCourseID();
-                CourseEntity newCourse = new CourseEntity(++courseID,editTitle.getText().toString(),editStartDate.getText().toString(),editEndDate.getText().toString(),editStatus.getText().toString(),editInstructorName.getText().toString(),editInstructorPhone.getText().toString(),editInstructorEmail.getText().toString(),editNotes.getText().toString(),termID);
+                CourseEntity newCourse = new CourseEntity(0,editTitle.getText().toString(),editStartDate.getText().toString(),editEndDate.getText().toString(),editStatus.getText().toString(),editInstructorName.getText().toString(),editInstructorPhone.getText().toString(),editInstructorEmail.getText().toString(),editNotes.getText().toString(),termID);
                 repository.insert(newCourse);
             }
             else{

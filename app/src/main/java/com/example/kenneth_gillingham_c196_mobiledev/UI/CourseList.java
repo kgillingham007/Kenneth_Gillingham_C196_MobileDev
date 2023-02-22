@@ -83,9 +83,10 @@ public class CourseList extends AppCompatActivity {
         FloatingActionButton fab = findViewById(R.id.addCourseFAB);
         fab.setOnClickListener(view -> {
             Intent intent = new Intent(CourseList.this,AssessmentList.class);
-            if (currentCourses != null)
+            if (currentCourses != null){
                 intent.putExtra("courseID", currentCourses.getTermID());
-            intent.putExtra("termID",termID);
+            }
+            intent.putExtra("termID", termID);
             startActivity(intent);
         });
 
@@ -93,7 +94,7 @@ public class CourseList extends AppCompatActivity {
         button.setOnClickListener(view -> {
             if(termID == -1){
                 //ID = allTerms.get(allTerms.size()-1).getTermID();
-                TermEntity newTerm = new TermEntity(++termID,editTitle.getText().toString(),editStartDate.getText().toString(),editEndDate.getText().toString());
+                TermEntity newTerm = new TermEntity(0,editTitle.getText().toString(),editStartDate.getText().toString(),editEndDate.getText().toString());
                 repository.insert(newTerm);
             }
             else{
