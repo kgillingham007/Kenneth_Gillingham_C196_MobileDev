@@ -20,7 +20,7 @@ import com.example.kenneth_gillingham_c196_mobiledev.DAO.AssessmentDAO;
  * Created with Android Studio
  */
 
-@Database(entities = {AssessmentEntity.class}, version = 2, exportSchema = false)
+@Database(entities = {AssessmentEntity.class}, version = 4, exportSchema = false)
 
 public abstract class AssessmentDatabase extends RoomDatabase {
 

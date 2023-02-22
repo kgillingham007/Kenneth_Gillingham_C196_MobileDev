@@ -19,7 +19,7 @@ import com.example.kenneth_gillingham_c196_mobiledev.DAO.CourseDAO;
  * <p>
  * Created with Android Studio
  */
-@Database(entities = {CourseEntity.class}, version = 2, exportSchema = false)
+@Database(entities = {CourseEntity.class}, version = 4, exportSchema = false)
 
 public abstract class CourseDatabase extends RoomDatabase {
 
