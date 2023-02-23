@@ -127,7 +127,7 @@ public class AssessmentList extends AppCompatActivity {
                 repository.update(editCourse);
             }
             Intent intent = new Intent(AssessmentList.this,CourseList.class);
-            startActivity(intent);
+            finish();
         });
 
 
@@ -200,7 +200,7 @@ public class AssessmentList extends AppCompatActivity {
                 Intent sendIntent = new Intent();
                 sendIntent.setAction(Intent.ACTION_SEND);
                 sendIntent.putExtra(Intent.EXTRA_TITLE,"NOTES");
-                sendIntent.putExtra(Intent.EXTRA_TEXT,"Course" + editTitle.getText().toString() + "notes" + ":" + editNotes.getText().toString());
+                sendIntent.putExtra(Intent.EXTRA_TEXT,"Course: " + editTitle.getText().toString() + "notes: "  + editNotes.getText().toString());
                 sendIntent.setType("text/plain");
                 Intent shareIntent = Intent.createChooser(sendIntent,null);
                 startActivity(shareIntent);

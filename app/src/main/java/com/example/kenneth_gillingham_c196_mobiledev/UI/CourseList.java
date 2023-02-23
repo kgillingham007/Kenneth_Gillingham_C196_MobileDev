@@ -99,7 +99,7 @@ public class CourseList extends AppCompatActivity {
                 repository.update(editTerm);
             }
             Intent intent = new Intent(CourseList.this,TermList.class);
-            startActivity(intent);
+            finish();
         });
     }
 

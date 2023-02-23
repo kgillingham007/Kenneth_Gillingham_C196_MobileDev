@@ -81,7 +81,7 @@ public class AssessmentDetail extends AppCompatActivity {
                 repository.update(editAssessment);
             }
             Intent intent = new Intent(AssessmentDetail.this,AssessmentList.class);
-            startActivity(intent);
+            finish();
         });
 
     }
