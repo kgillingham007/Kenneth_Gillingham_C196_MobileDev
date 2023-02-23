@@ -53,7 +53,7 @@ public class AssessmentDetail extends AppCompatActivity {
         courseID = getIntent().getIntExtra("courseID",-1);
         repository = new Repository(getApplication());
         allAssessments = repository.getAllAssessments();
-        for (AssessmentEntity a : allAssessments){
+        for (AssessmentEntity a : repository.getAllAssessments()){
             if (a.getAssessmentID() == assessmentID) currentAssessments = a;
         }
 

@@ -19,7 +19,7 @@ import com.example.kenneth_gillingham_c196_mobiledev.DAO.TermDAO;
  * <p>
  * Created with Android Studio
  */
-@Database(entities = {TermEntity.class}, version = 8, exportSchema = false)
+@Database(entities = {TermEntity.class}, version = 9, exportSchema = false)
 
 public abstract class TermDatabase extends RoomDatabase {
 

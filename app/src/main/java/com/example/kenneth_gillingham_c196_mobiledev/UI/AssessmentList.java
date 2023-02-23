@@ -67,8 +67,8 @@ public class AssessmentList extends AppCompatActivity {
         termID = getIntent().getIntExtra("termID",-1);
         repository = new Repository(getApplication());
         allCourses = repository.getAllCourses();
-        for (CourseEntity c : allCourses){
-            Log.d("Course ID", "ID: " + c.getCourseID());
+        for (CourseEntity c : repository.getAllCourses()){
+            //Log.d("Course ID", "ID: " + c.getCourseID());
             if (c.getCourseID() == (courseID)) currentCourse = c;
         }
 
@@ -109,9 +109,7 @@ public class AssessmentList extends AppCompatActivity {
         FloatingActionButton fab = findViewById(R.id.addAssessmentFAB);
         fab.setOnClickListener(view -> {
             Intent intent = new Intent(AssessmentList.this,AssessmentDetail.class);
-            if (currentCourse != null){
-                intent.putExtra("courseID", currentCourse.getCourseID());
-            }
+            if (currentCourse != null) intent.putExtra("courseID", currentCourse.getCourseID());
             intent.putExtra("courseID",courseID);
             startActivity(intent);
         });

@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -40,7 +39,7 @@ public class CourseList extends AppCompatActivity {
     TermEntity currentTerm;
     public static int numberCourses;
     RecyclerView recyclerView;
-    private int termID;
+    private int ID;
     List<TermEntity> allTerms;
     private CourseEntity currentCourses;
 
@@ -48,11 +47,11 @@ public class CourseList extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course_list);
-        termID = getIntent().getIntExtra("termID", -1);
+        ID = getIntent().getIntExtra("termID", -1);
         repository = new Repository(getApplication());
         allTerms = repository.getAllTerms();
-        for (TermEntity t : allTerms){
-            if (t.getTermID() == termID) currentTerm = t;
+        for (TermEntity t : repository.getAllTerms()){
+            if (t.getTermID() == ID) currentTerm = t;
         }
 
         editTitle = findViewById(R.id.termTitleEditText);
@@ -74,7 +73,7 @@ public class CourseList extends AppCompatActivity {
         //courseAdapter.setCourses(allCourses);
         List<CourseEntity> filteredCourses = new ArrayList<>();
         for (CourseEntity c : repository.getAllCourses()){
-            if (c.getTermID() == termID)
+            if (c.getTermID() == ID)
                 filteredCourses.add(c);
         }
         numberCourses = filteredCourses.size();
@@ -83,22 +82,20 @@ public class CourseList extends AppCompatActivity {
         FloatingActionButton fab = findViewById(R.id.addCourseFAB);
         fab.setOnClickListener(view -> {
             Intent intent = new Intent(CourseList.this,AssessmentList.class);
-            if (currentCourses != null){
-                intent.putExtra("courseID", currentCourses.getTermID());
-            }
-            intent.putExtra("termID", termID);
+            if (currentCourses != null) intent.putExtra("courseID", currentCourses.getTermID());
+            intent.putExtra("termID", ID);
             startActivity(intent);
         });
 
         Button button = findViewById(R.id.saveTermButton);
         button.setOnClickListener(view -> {
-            if(termID == -1){
+            if(ID == -1){
                 //ID = allTerms.get(allTerms.size()-1).getTermID();
                 TermEntity newTerm = new TermEntity(0,editTitle.getText().toString(),editStartDate.getText().toString(),editEndDate.getText().toString());
                 repository.insert(newTerm);
             }
             else{
-                TermEntity editTerm = new TermEntity(termID,editTitle.getText().toString(),editStartDate.getText().toString(),editEndDate.getText().toString());
+                TermEntity editTerm = new TermEntity(ID,editTitle.getText().toString(),editStartDate.getText().toString(),editEndDate.getText().toString());
                 repository.update(editTerm);
             }
             Intent intent = new Intent(CourseList.this,TermList.class);
@@ -118,7 +115,7 @@ public class CourseList extends AppCompatActivity {
         List<CourseEntity>  filteredCourses = new ArrayList<>();
 
         for (CourseEntity c : allCourses){
-            if (c.getTermID() == termID)
+            if (c.getTermID() == ID)
                 filteredCourses.add(c);
         }
 
