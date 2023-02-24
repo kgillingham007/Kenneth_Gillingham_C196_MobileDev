@@ -3,9 +3,6 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/courseListRefresh"
-        android:title="Refresh" />
-    <item
         android:id="@+id/courseListDelete"
         android:title="Delete" />
     <item

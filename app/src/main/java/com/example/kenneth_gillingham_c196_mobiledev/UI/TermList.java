@@ -43,6 +43,7 @@ public class TermList extends AppCompatActivity {
         final TermAdapter termAdapter = new TermAdapter(this);
         recyclerView.setAdapter(termAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
         repository = new Repository(getApplication());
         List<TermEntity> allTerms = repository.getAllTerms();
         termAdapter.setTerms(allTerms);
@@ -53,8 +54,6 @@ public class TermList extends AppCompatActivity {
             if (currentTerms != null) intent.putExtra("termID", currentTerms.getTermID());
             startActivity(intent);
         });
-        //ActionBar actionBar = getActionBar();
-        //actionBar.setDisplayHomeAsUpEnabled(true);
     }
 
     @Override protected void onResume(){

@@ -24,7 +24,7 @@ import com.example.kenneth_gillingham_c196_mobiledev.R;
  * <p>
  * Created with Android Studio
  */
-public class Receiver extends BroadcastReceiver {
+/*public class Receiver extends BroadcastReceiver {
     String channel_ID = "test";
     static int notificationID;
     
@@ -51,6 +51,6 @@ public class Receiver extends BroadcastReceiver {
             notificationManager.createNotificationChannel(channel);
         }
     }
-}
+}*/
 
    

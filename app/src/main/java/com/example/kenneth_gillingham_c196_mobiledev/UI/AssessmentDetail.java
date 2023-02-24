@@ -72,7 +72,6 @@ public class AssessmentDetail extends AppCompatActivity {
         Button button = findViewById(R.id.saveAssessmentButton);
         button.setOnClickListener(view -> {
             if(assessmentID == -1){
-                //assessmentID = allAssessments.get(allAssessments.size()-1).getAssessmentID();
                 AssessmentEntity newAssessment = new AssessmentEntity(0,editTitle.getText().toString() , editType.getText().toString() , editStartDate.getText().toString() , editEndDate.getText().toString() , courseID);
                 repository.insert(newAssessment);
             }
@@ -101,7 +100,7 @@ public class AssessmentDetail extends AppCompatActivity {
             case R.id.assessmentListNotifyStart:
                 String assessmentTitle = editTitle.getText().toString();
                 String assessmentStartDate = editStartDate.getText().toString();
-                String dateFormat = "MM/DD/YYYY";
+                String dateFormat = "MM/dd/yy";
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat(dateFormat , Locale.US);
                 Date date = null;
                 try {
@@ -111,8 +110,8 @@ public class AssessmentDetail extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 Long trig = date.getTime();
-                Intent notifyIntent = new Intent(AssessmentDetail.this , Receiver.class);
-                notifyIntent.putExtra("key" , assessmentTitle + "Starts Today" + assessmentStartDate);
+                Intent notifyIntent = new Intent(AssessmentDetail.this , MyReceiver.class);
+                notifyIntent.putExtra("key", "Assessment: " + assessmentTitle + " Starts: " + assessmentStartDate);
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(AssessmentDetail.this, ++MainActivity.numberAlert,notifyIntent,PendingIntent.FLAG_IMMUTABLE);
                 AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
                 alarmManager.set(AlarmManager.RTC_WAKEUP , trig , pendingIntent);
@@ -121,7 +120,7 @@ public class AssessmentDetail extends AppCompatActivity {
             case R.id.assessmentListNotifyEnd:
                 assessmentTitle = editTitle.getText().toString();
                 String assessmentEndDate = editEndDate.getText().toString();
-                dateFormat = "MM/DD/YYYY";
+                dateFormat = "MM/dd/yy";
                 simpleDateFormat = new SimpleDateFormat(dateFormat , Locale.US);
                 date = null;
                 try {
@@ -131,8 +130,8 @@ public class AssessmentDetail extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 trig = date.getTime();
-                notifyIntent = new Intent(AssessmentDetail.this , Receiver.class);
-                notifyIntent.putExtra("key" , assessmentTitle + "Ends Today" + assessmentEndDate);
+                notifyIntent = new Intent(AssessmentDetail.this , MyReceiver.class);
+                notifyIntent.putExtra("key", "Assessment: " + assessmentTitle + " Ends: " + assessmentEndDate);
                 pendingIntent = PendingIntent.getBroadcast(AssessmentDetail.this , ++MainActivity.numberAlert , notifyIntent , PendingIntent.FLAG_IMMUTABLE);
                 alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
                 alarmManager.set(AlarmManager.RTC_WAKEUP , trig , pendingIntent);

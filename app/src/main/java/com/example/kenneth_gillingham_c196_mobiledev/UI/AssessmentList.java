@@ -1,6 +1,7 @@
 package com.example.kenneth_gillingham_c196_mobiledev.UI;
 
 import android.app.AlarmManager;
+import android.app.DatePickerDialog;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
@@ -8,7 +9,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -27,6 +30,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -58,11 +62,21 @@ public class AssessmentList extends AppCompatActivity {
     EditText editInstructorEmail;
     EditText editNotes;
 
+    /*//Date picker associated Code
+    DatePickerDialog.OnDateSetListener startDate;
+    DatePickerDialog.OnDateSetListener endDate;
+    final Calendar myCalendarStart = Calendar.getInstance();*/
+
+
 
 
     @Override protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_assessment_list);
+        RecyclerView recyclerView = findViewById(R.id.associatedAssessmentRecyclerView);
+        final AssessmentAdapter assessmentAdapter = new AssessmentAdapter(this);
+        recyclerView.setAdapter(assessmentAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
         courseID = getIntent().getIntExtra("courseID",-1);
         termID = getIntent().getIntExtra("termID",-1);
         repository = new Repository(getApplication());
@@ -71,6 +85,10 @@ public class AssessmentList extends AppCompatActivity {
             //Log.d("Course ID", "ID: " + c.getCourseID());
             if (c.getCourseID() == (courseID)) currentCourse = c;
         }
+
+        /*//datepicker associated code
+        String dateFormat = "MM/dd/yy";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(dateFormat, Locale.US);*/
 
         editTitle=findViewById(R.id.courseTitleEditText);
         editStartDate=findViewById(R.id.courseStartDateEditText);
@@ -92,10 +110,6 @@ public class AssessmentList extends AppCompatActivity {
             editNotes.setText(currentCourse.getCourseNotes());
         }
 
-        RecyclerView recyclerView = findViewById(R.id.associatedAssessmentRecyclerView);
-        final AssessmentAdapter assessmentAdapter = new AssessmentAdapter(this);
-        recyclerView.setAdapter(assessmentAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         List<AssessmentEntity> filteredAssessments = new ArrayList<>();
         for (AssessmentEntity a : repository.getAllAssessments()){
@@ -142,7 +156,26 @@ public class AssessmentList extends AppCompatActivity {
             startActivity(settingsIntent);
         }
 
+
+       /* editStartDate.setOnClickListener(new View.onClickListener(){
+            @Override public void onClick(View v){
+                Date date;
+                String info = editStartDate.getText().toString();
+                if (info.equals("")) info = "02/23/2023";
+                try{
+                    myCalendarStart.setTime(sdf.parse(info));
+                }
+                catch (ParseException e){
+                    e.printStackTrace();
+                }
+                new DatePickerDialog(AssessmentList.this , editStartDate , myCalendarStart.get(Calendar.YEAR) , myCalendarStart.get(Calendar.MONTH) , myCalendarStart.get(Calendar.DAY_OF_MONTH)).show();
+            }
+        });*/
+
     }
+
+
+
 
     @Override public boolean onOptionsItemSelected(MenuItem item){
         switch(item.getItemId()){
@@ -159,7 +192,7 @@ public class AssessmentList extends AppCompatActivity {
             case R.id.courseListNotifyStart:
                 String courseStartDate = editStartDate.getText().toString();
                 String courseTitle = editTitle.getText().toString();
-                String dateFormat = "MM/DD/YYYY";
+                String dateFormat = "MM/dd/yy";
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat(dateFormat, Locale.US);
                 Date date = null;
                 try {
@@ -168,18 +201,18 @@ public class AssessmentList extends AppCompatActivity {
                 catch (ParseException e){
                     e.printStackTrace();
                 }
-                Long trig = date.getTime();
-                Intent startIntent = new Intent(AssessmentList.this, Receiver.class);
-                startIntent.putExtra("key","COURSE" + courseTitle + "STARTS" + courseStartDate);
+                Long trigger = date.getTime();
+                Intent startIntent = new Intent(AssessmentList.this, MyReceiver.class);
+                startIntent.putExtra("key","Course: " + courseTitle + "Starts: " + courseStartDate);
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(AssessmentList.this, ++MainActivity.numberAlert,startIntent,PendingIntent.FLAG_IMMUTABLE);
                 AlarmManager alarmManager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
-                alarmManager.set(AlarmManager.RTC_WAKEUP,trig,pendingIntent);
+                alarmManager.set(AlarmManager.RTC_WAKEUP,trigger,pendingIntent);
                 return true;
 
             case R.id.courseListNotifyEnd:
                 String courseEndDate = editEndDate.getText().toString();
                 courseTitle = editTitle.getText().toString();
-                dateFormat = "MM/DD/YYYY";
+                dateFormat = "MM/dd/yy";
                 simpleDateFormat = new SimpleDateFormat(dateFormat, Locale.US);
                 date = null;
                 try {
@@ -188,12 +221,12 @@ public class AssessmentList extends AppCompatActivity {
                 catch (ParseException e){
                     e.printStackTrace();
                 }
-                trig = date.getTime();
-                Intent endIntent = new Intent(AssessmentList.this, Receiver.class);
-                endIntent.putExtra("key", "COURSE" + courseTitle + "ENDS" + courseEndDate);
+                trigger = date.getTime();
+                Intent endIntent = new Intent(AssessmentList.this, MyReceiver.class);
+                endIntent.putExtra("key", "Course: " + courseTitle + "Ends: " + courseEndDate);
                 PendingIntent pendingIntent1 = PendingIntent.getBroadcast(AssessmentList.this, ++MainActivity.numberAlert,endIntent,PendingIntent.FLAG_IMMUTABLE);
                 AlarmManager alarmManager1 = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
-                alarmManager1.set(AlarmManager.RTC_WAKEUP,trig,pendingIntent1);
+                alarmManager1.set(AlarmManager.RTC_WAKEUP,trigger,pendingIntent1);
                 return true;
 
             case R.id.courseListShare:

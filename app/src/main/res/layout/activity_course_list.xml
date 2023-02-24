@@ -7,7 +7,7 @@
 
     <ScrollView
         android:id="@+id/courseListScrollView"
-        android:layout_width="409dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/courseTextView">
@@ -36,7 +36,8 @@
                     android:layout_weight="1"
                     android:ems="10"
                     android:hint="Term Title"
-                    android:inputType="textPersonName" />
+                    android:inputType="textPersonName"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small" />
             </LinearLayout>
 
             <LinearLayout
@@ -58,7 +59,8 @@
                     android:layout_weight="1"
                     android:ems="10"
                     android:hint="Term Start Date"
-                    android:inputType="textPersonName" />
+                    android:inputType="textPersonName"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small" />
             </LinearLayout>
 
             <LinearLayout
@@ -80,7 +82,8 @@
                     android:layout_weight="1"
                     android:ems="10"
                     android:hint="Term End Date"
-                    android:inputType="textPersonName" />
+                    android:inputType="textPersonName"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
@@ -91,8 +94,9 @@
         android:layout_height="wrap_content"
         android:text="Please Enter/Edit Term Information. Select a Course to See it's Details or Add a New Course."
         android:textAlignment="center"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView

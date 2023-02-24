@@ -47,8 +47,21 @@ public class CourseList extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course_list);
+        RecyclerView recyclerView = findViewById(R.id.associatedCoursesRecyclerView);
+        final CourseAdapter courseAdapter = new CourseAdapter(this);
+        recyclerView.setAdapter(courseAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
         ID = getIntent().getIntExtra("termID", -1);
+
         repository = new Repository(getApplication());
+        List<CourseEntity> filteredCourses = new ArrayList<>();
+        for (CourseEntity c : repository.getAllCourses()){
+            if (c.getTermID() == ID)
+                filteredCourses.add(c);
+        }
+        numberCourses = filteredCourses.size();
+        courseAdapter.setCourses(filteredCourses);
+
         allTerms = repository.getAllTerms();
         for (TermEntity t : repository.getAllTerms()){
             if (t.getTermID() == ID) currentTerm = t;
@@ -64,20 +77,6 @@ public class CourseList extends AppCompatActivity {
             editEndDate.setText(currentTerm.getTermEndDate());
         }
 
-        RecyclerView recyclerView = findViewById(R.id.associatedCoursesRecyclerView);
-        final CourseAdapter courseAdapter = new CourseAdapter(this);
-        recyclerView.setAdapter(courseAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-        //List<CourseEntity> allCourses = repository.getAllCourses();
-        //courseAdapter.setCourses(allCourses);
-        List<CourseEntity> filteredCourses = new ArrayList<>();
-        for (CourseEntity c : repository.getAllCourses()){
-            if (c.getTermID() == ID)
-                filteredCourses.add(c);
-        }
-        numberCourses = filteredCourses.size();
-        courseAdapter.setCourses(filteredCourses);
 
         FloatingActionButton fab = findViewById(R.id.addCourseFAB);
         fab.setOnClickListener(view -> {
@@ -90,7 +89,6 @@ public class CourseList extends AppCompatActivity {
         Button button = findViewById(R.id.saveTermButton);
         button.setOnClickListener(view -> {
             if(ID == -1){
-                //ID = allTerms.get(allTerms.size()-1).getTermID();
                 TermEntity newTerm = new TermEntity(0,editTitle.getText().toString(),editStartDate.getText().toString(),editEndDate.getText().toString());
                 repository.insert(newTerm);
             }
@@ -129,10 +127,6 @@ public class CourseList extends AppCompatActivity {
                 this.finish();
                 return true;
 
-            /*case R.id.courseListRefresh:
-                refreshCourseList();
-                return true;*/
-
             case R.id.termListDelete:
                 if (numberCourses == 0){
                     repository.delete(currentTerm);
@@ -153,57 +147,8 @@ public class CourseList extends AppCompatActivity {
         return true;
     }
 
-    /*private void refreshCourseList(){
-        recyclerView = findViewById(R.id.associatedCoursesRecyclerView);
-        final CourseAdapter adapter = new CourseAdapter(this);
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        List<CourseEntity> filteredCourses = new ArrayList<>();
-        List<CourseEntity> allCourses = repository.getAllCourses();
-        for (CourseEntity c : allCourses){
-            if (c.getTermID() == termID)
-                filteredCourses.add(c);
-        }
-        numberCourses = filteredCourses.size();
-        adapter.setCourses(filteredCourses);
-    }*/
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    /*
-    public void saveTerm(View view){
-        if(ID == -1){
-            ID = allTerms.get(allTerms.size()).getTermID();
-            TermEntity t = new TermEntity(++ID,editTitle.getText().toString(),editStartDate.getText().toString(),editEndDate.getText().toString());
-            repository.insert(t);
-        }
-        else{
-            TermEntity t = new TermEntity(ID,editTitle.getText().toString(),editStartDate.getText().toString(),editEndDate.getText().toString());
-            repository.update(t);
-        }
-        Intent intent = new Intent(CourseList.this,TermList.class);
-        startActivity(intent);
-    }
-
-    */
 }
 
    
